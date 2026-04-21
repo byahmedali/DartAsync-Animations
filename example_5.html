@@ -59,32 +59,35 @@
   <body>
     <main class="container">
       <section id="code-column" class="column">
-        <h2>Python Thread</h2>
+        <h2>Dart Main Isolate</h2>
         <hr class="separator" />
         <pre id="code-main" class="main-code-block">
-<code><span id="main-line-1">import asyncio</span>
-<span id="main-line-2">import time</span>
+<code><span id="main-line-1">import 'dart:async';</span>
+<span id="main-line-2">import 'dart:io';</span>
 
 
-<span id="main-line-3">async def fetch_data(param):</span>
-    print(f"Do something with {param}...")
-    time.sleep(param)
-    print(f"Done with {param}")
-    return f"Result of {param}"
+<span id="main-line-3">Future&lt;String&gt; fetchData(int param) async {</span>
+    print("Do something with $param...");
+    sleep(Duration(seconds: param)); // Blocking sleep!
+    print("Done with $param");
+    return "Result of $param";
+}
   
   
-<span id="main-line-4">async def main():</span>
-    task1 = asyncio.create_task(fetch_data(1))
-    task2 = asyncio.create_task(fetch_data(2))
-    result1 = await task1
-    print("Task 1 fully completed")
-    result2 = await task2
-    print("Task 2 fully completed")
-    return [result1, result2]
+<span id="main-line-4">Future&lt;List&lt;String&gt;&gt; mainLogic() async {</span>
+    var task1 = fetchData(1);
+    var task2 = fetchData(2);
+    var result1 = await task1;
+    print("Task 1 fully completed");
+    var result2 = await task2;
+    print("Task 2 fully completed");
+    return [result1, result2];
+}
   
-  
-<span id="main-line-5">results = asyncio.run(main())</span>
-<span id="main-line-6">print(results)</span></code></pre>
+void main() async {
+    <span id="main-line-5">var results = await mainLogic();</span>
+    <span id="main-line-6">print(results);</span>
+}</code></pre>
 
         <pre id="code-output" class="main-code-block"><code>Output:
 <span id="output-line-1"></span>

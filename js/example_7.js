@@ -21,31 +21,31 @@ document.addEventListener("DOMContentLoaded", () => {
   cardMain.querySelector("h3").textContent = "main()";
   cardMain.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
-<code><span class="line-1">async def main():</span>
-    <span class="line-2"># Create Tasks Manually</span>
-    <span class="line-3">task1 = asyncio.create_task(fetch_data(1))</span>
-    <span class="line-4">task2 = asyncio.create_task(fetch_data(2))</span>
-    <span class="line-5">result1 = await task1</span>
-    <span class="line-6">result2 = await task2</span>
-    <span class="line-7">print(f"Task 1 and 2 awaited results: {[result1, result2]}")</span>
+<code><span class="line-1">Future&lt;String&gt; mainLogic() async {</span>
+    <span class="line-2">// Create Tasks Manually</span>
+    <span class="line-3">var task1 = fetchData(1);</span>
+    <span class="line-4">var task2 = fetchData(2);</span>
+    <span class="line-5">var result1 = await task1;</span>
+    <span class="line-6">var result2 = await task2;</span>
+    <span class="line-7">print("Task 1 and 2 awaited results: [$result1, $result2]");</span>
 
-    <span class="line-8"># Gather Coroutines</span>
-    <span class="line-9">coroutines = [fetch_data(i) for i in range(1, 3)]</span>
-    <span class="line-10">results = await asyncio.gather(*coroutines, return_exceptions=True)</span>
-    <span class="line-11">print(f"Coroutine Results: {results}")</span>
+    <span class="line-8">// Gather Coroutines</span>
+    <span class="line-9">var futures1 = [1, 2].map((i) => fetchData(i)).toList();</span>
+    <span class="line-10">var results1 = await Future.wait(futures1);</span>
+    <span class="line-11">print("Future.wait Results: $results1");</span>
 
-    <span class="line-12"># Gather Tasks</span>
-    <span class="line-13">tasks = [asyncio.create_task(fetch_data(i)) for i in range(1, 3)]</span>
-    <span class="line-14">results = await asyncio.gather(*tasks)</span>
-    <span class="line-15">print(f"Task Results: {results}")</span>
+    <span class="line-12">// Gather Tasks</span>
+    <span class="line-13">var futures2 = [1, 2].map((i) => fetchData(i)).toList();</span>
+    <span class="line-14">var results2 = await Future.wait(futures2);</span>
+    <span class="line-15">print("Task Results: $results2");</span>
 
-    <span class="line-16"># Task Group</span>
-    <span class="line-17">async with asyncio.TaskGroup() as tg:</span>
-    <span class="line-18">    results = [tg.create_task(fetch_data(i)) for i in range(1, 3)]</span>
-    <span class="line-19">    # All tasks are awaited when the context manager exits.</span>
-    <span class="line-20">print(f"Task Group Results: {[result.result() for result in results]}")</span>
+    <span class="line-16">// Task Group</span>
+    <span class="line-17">var results3 = await Future.wait([1, 2].map((i) => fetchData(i)));</span>
+    <span class="line-18">    // All tasks awaited simultaneously</span>
+    <span class="line-19">    //</span>
+    <span class="line-20">print("Task Group Results: $results3");</span>
 
-    <span class="line-21">return "Main Coroutine Done"</span></code></pre>`;
+    <span class="line-21">return "Main Coroutine Done";</span></code></pre>`;
 
   // CARD - FETCH_DATA(1) COROUTINE
   const cardT1 = createCard("card-t1");
@@ -53,18 +53,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cardT1.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
-<code><span class="line-1">async def fetch_data(param):</span>
-    <span class="line-2">await asyncio.sleep(param)</span>
-    <span class="line-3">return f"Result of {param}"</span></code></pre>`;
+<code><span class="line-1">Future&lt;String&gt; fetchData(int param) async {</span>
+    <span class="line-2">await Future.delayed(Duration(seconds: param));</span>
+    <span class="line-3">return "Result of $param";</span></code></pre>`;
 
   // CARD - FETCH_DATA(2) COROUTINE
   const cardT2 = createCard("card-t2");
   cardT2.querySelector("h3").textContent = `fetch_data(2)`;
   cardT2.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
-<code><span class="line-1">async def fetch_data(param):</span>
-    <span class="line-2">await asyncio.sleep(param)</span>
-    <span class="line-3">return f"Result of {param}"</span></code></pre>`;
+<code><span class="line-1">Future&lt;String&gt; fetchData(int param) async {</span>
+    <span class="line-2">await Future.delayed(Duration(seconds: param));</span>
+    <span class="line-3">return "Result of $param";</span></code></pre>`;
 
   // CARD - IO FOR FETCH_DATA(1) - Section 1
   const cardIO1a = createCard("card-io1a", true);

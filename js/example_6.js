@@ -31,37 +31,37 @@ document.addEventListener("DOMContentLoaded", () => {
   cardMain.querySelector("h3").textContent = "main()";
   cardMain.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
-<code><span class="line-1">async def main():</span>
-    <span class="line-2"># Run in Threads</span>
-    <span class="line-3">task1 = asyncio.create_task(asyncio.to_thread(fetch_data, 1))</span>
-    <span class="line-4">task2 = asyncio.create_task(asyncio.to_thread(fetch_data, 2))</span>
-    <span class="line-5">result1 = await task1</span>
-    <span class="line-6">print("Thread 1 fully completed")</span>
-    <span class="line-7">result2 = await task2</span>
-    <span class="line-8">print("Thread 2 fully completed")</span>
+<code><span class="line-1">Future&lt;List&lt;String&gt;&gt; mainLogic() async {</span>
+    <span class="line-2">// Run in Threads</span>
+    <span class="line-3">var task1 = Isolate.run(() => fetchData(1));</span>
+    <span class="line-4">var task2 = Isolate.run(() => fetchData(2));</span>
+    <span class="line-5">var result1 = await task1;</span>
+    <span class="line-6">print("Isolate 1 fully completed");</span>
+    <span class="line-7">var result2 = await task2;</span>
+    <span class="line-8">print("Isolate 2 fully completed");</span>
 
-    <span class="line-9"># Run in Process Pool</span>
-    <span class="line-10">loop = asyncio.get_running_loop()</span>
-    <span class="line-11">with ProcessPoolExecutor() as executor:</span>
-    <span class="line-12">    task1 = loop.run_in_executor(executor, fetch_data, 1)</span>
-    <span class="line-13">    task2 = loop.run_in_executor(executor, fetch_data, 2)</span>
-    <span class="line-14">    result1 = await task1</span>
-    <span class="line-15">    print("Process 1 fully completed")</span>
-    <span class="line-16">    result2 = await task2</span>
-    <span class="line-17">    print("Process 2 fully completed")</span>
+    <span class="line-9">// Run in Process Pool</span>
+    <span class="line-10">// Dart usually relies on isolates</span>
+    <span class="line-11">// for true multiprocessing since it doesn\'t share memory.</span>
+    <span class="line-12">    // var task1 = Isolate.run(() => fetchData(1));</span>
+    <span class="line-13">    // var task2 = Isolate.run(() => fetchData(2));</span>
+    <span class="line-14">    var result1 = await task1;</span>
+    <span class="line-15">    // print("Process 1 fully completed");</span>
+    <span class="line-16">    var result2 = await task2;</span>
+    <span class="line-17">    // print("Process 2 fully completed");</span>
 
-    <span class="line-18">return [result1, result2]</span></code></pre>`;
+    <span class="line-18">return [result1, result2];</span></code></pre>`;
 
   // CARD - THREAD TASK 1
   const cardThreadTask1 = createCard("card-thread-task1");
-  cardThreadTask1.querySelector("h3").textContent = `to_thread(fetch_data, 1)`;
+  cardThreadTask1.querySelector("h3").textContent = `Isolate.run(1)`;
   cardThreadTask1.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
 <code><span class="line-1">Running in thread pool...</span></code></pre>`;
 
   // CARD - THREAD TASK 2
   const cardThreadTask2 = createCard("card-thread-task2");
-  cardThreadTask2.querySelector("h3").textContent = `to_thread(fetch_data, 2)`;
+  cardThreadTask2.querySelector("h3").textContent = `Isolate.run(2)`;
   cardThreadTask2.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
 <code><span class="line-1">Running in thread pool...</span></code></pre>`;
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cardProcessTask1 = createCard("card-process-task1");
   cardProcessTask1.querySelector(
     "h3"
-  ).textContent = `run_in_executor(fetch_data, 1)`;
+  ).textContent = `Isolate.run()`;
   cardProcessTask1.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
 <code><span class="line-1">Running in process pool...</span></code></pre>`;
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cardProcessTask2 = createCard("card-process-task2");
   cardProcessTask2.querySelector(
     "h3"
-  ).textContent = `run_in_executor(fetch_data, 2)`;
+  ).textContent = `Isolate.run()`;
   cardProcessTask2.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
 <code><span class="line-1">Running in process pool...</span></code></pre>`;

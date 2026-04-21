@@ -59,48 +59,44 @@
   <body>
     <main class="container">
       <section id="code-column" class="column">
-        <h2>Python Thread</h2>
+        <h2>Dart Main Isolate</h2>
         <hr class="separator" />
         <pre id="code-main" class="main-code-block">
-<code><span id="main-line-1">import asyncio</span>
-<span id="main-line-2">import time</span>
-<span id="main-line-3">from concurrent.futures import ProcessPoolExecutor</span>
+<code><span id="main-line-1">import 'dart:async';</span>
+<span id="main-line-2">import 'dart:io';</span>
+<span id="main-line-3">import 'dart:isolate';</span>
 
 
-<span id="main-line-4">def fetch_data(param):</span>
-    print(f"Do something with {param}...", flush=True)
-    time.sleep(param)
-    print(f"Done with {param}", flush=True)
-    return f"Result of {param}"
+<span id="main-line-4">String fetchData(int param) {</span>
+    print("Do something with $param...");
+    sleep(Duration(seconds: param));
+    print("Done with $param");
+    return "Result of $param";
+}
   
   
-<span id="main-line-5">async def main():</span>
-    # Run in Threads
-    task1 = asyncio.create_task(asyncio.to_thread(fetch_data, 1))
-    task2 = asyncio.create_task(asyncio.to_thread(fetch_data, 2))
-    result1 = await task1
-    print("Thread 1 fully completed")
-    result2 = await task2
-    print("Thread 2 fully completed")
+<span id="main-line-5">Future&lt;List&lt;String&gt;&gt; mainLogic() async {</span>
+    // Run in Isolate (similar to Thread/Process)
+    var task1 = Isolate.run(() => fetchData(1));
+    var task2 = Isolate.run(() => fetchData(2));
+    var result1 = await task1;
+    print("Isolate 1 fully completed");
+    var result2 = await task2;
+    print("Isolate 2 fully completed");
 
-    # Run in Process Pool
-    loop = asyncio.get_running_loop()
-
-    with ProcessPoolExecutor() as executor:
-        task1 = loop.run_in_executor(executor, fetch_data, 1)
-        task2 = loop.run_in_executor(executor, fetch_data, 2)
-
-        result1 = await task1
-        print("Process 1 fully completed")
-        result2 = await task2
-        print("Process 2 fully completed")
-
-    return [result1, result2]
+    // Dart usually relies on isolates instead of OS processes
+    // for true multiprocessing since it doesn't share memory.
+    
+    // (Additional execution could go here)
+    
+    return [result1, result2];
+}
 
 
-<span id="main-line-6">if __name__ == "__main__":</span>
-    <span id="main-line-7">results = asyncio.run(main())</span>
-    <span id="main-line-8">print(results)</span></code></pre>
+void main() <span id="main-line-6">async {</span>
+    <span id="main-line-7">var results = await mainLogic();</span>
+    <span id="main-line-8">print(results);</span>
+}</code></pre>
 
         <pre id="code-output" class="main-code-block"><code>Output:
 <span id="output-line-1"></span>

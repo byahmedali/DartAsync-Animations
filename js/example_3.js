@@ -22,14 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
   cardMain.querySelector("h3").textContent = "main()";
   cardMain.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
-<code><span class="line-1">async def main():</span>
-    <span class="line-2">task1 = asyncio.create_task(fetch_data(1))</span>
-    <span class="line-3">task2 = asyncio.create_task(fetch_data(2))</span>
-    <span class="line-4">result1 = await task1</span>
-    <span class="line-5">print("Task 1 fully completed")</span>
-    <span class="line-6">result2 = await task2</span>
-    <span class="line-7">print("Task 2 fully completed")</span>
-    <span class="line-8">return [result1, result2]</span></code></pre>`;
+<code><span class="line-1">Future&lt;List&lt;String&gt;&gt; mainLogic() async {</span>
+    <span class="line-2">var task1 = fetchData(1);</span>
+    <span class="line-3">var task2 = fetchData(2);</span>
+    <span class="line-4">var result1 = await task1;</span>
+    <span class="line-5">print("Task 1 fully completed");</span>
+    <span class="line-6">var result2 = await task2;</span>
+    <span class="line-7">print("Task 2 fully completed");</span>
+    <span class="line-8">return [result1, result2];</span></code></pre>`;
 
   // CARD - FETCH_DATA(1) COROUTINE
   const cardT1 = createCard("card-t1");
@@ -38,22 +38,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cardT1.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
-<code><span class="line-1">async def fetch_data(param):</span>
-    <span class="line-2">print(f"Do something with {param}...")</span>
-    <span class="line-3">await asyncio.sleep(param)</span>
-    <span class="line-4">print(f"Done with {param}")</span>
-    <span class="line-5">return f"Result of {param}"</span></code></pre>`;
+<code><span class="line-1">Future&lt;String&gt; fetchData(int param) async {</span>
+    <span class="line-2">print("Do something with $param...");</span>
+    <span class="line-3">await Future.delayed(Duration(seconds: param));</span>
+    <span class="line-4">print("Done with $param");</span>
+    <span class="line-5">return "Result of $param";</span></code></pre>`;
 
   // CARD - FETCH_DATA(2) COROUTINE
   const cardT2 = createCard("card-t2");
   cardT2.querySelector("h3").textContent = `fetch_data(2)`;
   cardT2.querySelector(".card-body").innerHTML = `
         <pre class="card-code-block">
-<code><span class="line-1">async def fetch_data(param):</span>
-    <span class="line-2">print(f"Do something with {param}...")</span>
-    <span class="line-3">await asyncio.sleep(param)</span>
-    <span class="line-4">print(f"Done with {param}")</span>
-    <span class="line-5">return f"Result of {param}"</span></code></pre>`;
+<code><span class="line-1">Future&lt;String&gt; fetchData(int param) async {</span>
+    <span class="line-2">print("Do something with $param...");</span>
+    <span class="line-3">await Future.delayed(Duration(seconds: param));</span>
+    <span class="line-4">print("Done with $param");</span>
+    <span class="line-5">return "Result of $param";</span></code></pre>`;
 
   // CARD - IO FOR FETCH_DATA(1)
   const cardIO1 = createCard("card-io1", true);

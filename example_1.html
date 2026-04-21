@@ -59,29 +59,32 @@
   <body>
     <main class="container">
       <section id="code-column" class="column">
-        <h2>Python Thread</h2>
+        <h2>Dart Main Isolate</h2>
         <hr class="separator" />
         <pre id="code-main" class="main-code-block">
-<code><span id="main-line-1">import time</span>
+<code><span id="main-line-1">import 'dart:io';</span>
 
 
-<span id="main-line-2">def fetch_data(param):</span>
-    <span id="fetch-line-1">print(f"Do something with {param}...")</span>
-    <span id="fetch-line-2">time.sleep(param)</span>
-    <span id="fetch-line-3">print(f"Done with {param}")</span>
-    <span id="fetch-line-4">return f"Result of {param}"</span>
+<span id="main-line-2">String fetchData(int param) {</span>
+    <span id="fetch-line-1">print("Do something with $param...");</span>
+    <span id="fetch-line-2">sleep(Duration(seconds: param));</span>
+    <span id="fetch-line-3">print("Done with $param");</span>
+    <span id="fetch-line-4">return "Result of $param";</span>
+}
 
 
-<span id="main-line-3">def main():</span>
-    <span id="main-inner-1">result1 = fetch_data(1)</span>
-    <span id="main-inner-2">print("Fetch 1 fully completed")</span>
-    <span id="main-inner-3">result2 = fetch_data(2)</span>
-    <span id="main-inner-4">print("Fetch 2 fully completed")</span>
-    <span id="main-inner-5">return [result1, result2]</span>
+<span id="main-line-3">List&lt;String&gt; mainLogic() {</span>
+    <span id="main-inner-1">var result1 = fetchData(1);</span>
+    <span id="main-inner-2">print("Fetch 1 fully completed");</span>
+    <span id="main-inner-3">var result2 = fetchData(2);</span>
+    <span id="main-inner-4">print("Fetch 2 fully completed");</span>
+    <span id="main-inner-5">return [result1, result2];</span>
+}
 
-
-<span id="main-line-4">results = main()</span>
-<span id="main-line-5">print(results)</span></code></pre>
+void main() {
+    <span id="main-line-4">var results = mainLogic();</span>
+    <span id="main-line-5">print(results);</span>
+}</code></pre>
 
         <pre id="code-output" class="main-code-block"><code>Output:
 <span id="output-line-1"></span>
